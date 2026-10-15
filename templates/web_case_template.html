@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{PRODUCT_NAME}} | Product Management Case Study — Kevin Augusto Vieira</title>
+  
+  <meta name="description" content="{{META_DESCRIPTION}}">
+  <meta property="og:title" content="{{PRODUCT_NAME}} — Product Case Study | Kevin Augusto Vieira">
+  <meta property="og:description" content="{{META_DESCRIPTION}}">
+  <meta property="og:type" content="article">
+  <meta name="author" content="Kevin Augusto Vieira">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            brand: {
+              400: '#fb923c',
+              500: '#f97316',
+              600: '#ea580c',
+            },
+            surface: {
+              850: '#172033',
+              900: '#0f172a',
+              950: '#090d16',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Mermaid.js -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'dark',
+      themeVariables: {
+        darkMode: true,
+        background: '#0f172a',
+        primaryColor: '#1e293b',
+        primaryTextColor: '#f8fafc',
+        primaryBorderColor: '#f97316',
+        lineColor: '#64748b',
+      }
+    });
+  </script>
+
+  <style>
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #090d16; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #f97316; }
+
+    @media print {
+      body { background: #ffffff !important; color: #000000 !important; }
+      .no-print { display: none !important; }
+    }
+  </style>
+</head>
+
+<body class="bg-surface-950 text-slate-100 min-h-screen font-sans antialiased selection:bg-brand-500 selection:text-white">
+
+  <!-- Scroll Progress -->
+  <div id="scroll-progress" class="fixed top-0 left-0 h-1 bg-gradient-to-r from-brand-500 to-amber-400 z-50 transition-all duration-150" style="width: 0%"></div>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-40 backdrop-blur-xl bg-surface-950/85 border-b border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-9 h-9 rounded-xl bg-brand-500/20 text-brand-400 font-bold flex items-center justify-center border border-brand-500/30">
+          {{PRODUCT_INITIAL}}
+        </div>
+        <div>
+          <span class="font-bold text-lg text-white">{{PRODUCT_NAME}}</span>
+          <p class="text-xs text-slate-400 hidden sm:block">Kevin Augusto Vieira • Product Leadership</p>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-2">
+        <button onclick="window.print()" class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">
+          <i data-lucide="printer" class="w-3.5 h-3.5"></i>
+          <span>PDF</span>
+        </button>
+        <button onclick="copyCaseUrl()" class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-lg bg-brand-500 hover:bg-brand-600 text-white shadow-lg shadow-brand-500/20 transition">
+          <i data-lucide="share-2" class="w-3.5 h-3.5"></i>
+          <span id="share-btn-text">Compartilhar</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-16">
+    <!-- Main Content injected dynamically by the skill -->
+    {{MAIN_CONTENT_HTML}}
+  </main>
+
+  <script>
+    lucide.createIcons();
+    window.addEventListener('scroll', () => {
+      const winScroll = document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      document.getElementById('scroll-progress').style.width = scrolled + '%';
+    });
+    function copyCaseUrl() {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        const btnText = document.getElementById('share-btn-text');
+        btnText.innerText = 'Copiado!';
+        setTimeout(() => { btnText.innerText = 'Compartilhar'; }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
