@@ -1,7 +1,7 @@
 ---
 name: wellness-icp-prospecting
 description: Pesquisa recorrente e qualificação B2B pelo ICP Score do Wellness Protocol, com evidências, deduplicação e saída pronta para CRM/Direct. Sem envio automático de mensagens.
-version: 1.0.0
+version: 1.1.0
 ---
 
 # Skill: Wellness ICP Prospecting
@@ -15,7 +15,7 @@ Localizar e qualificar empresas brasileiras de **recovery e wellness operacional
 
 ## Entradas
 - data da execução e região preferida (default: Brasil);
-- número-alvo de novos leads (default: 5; máximo: 10 por execução);
+- número-alvo de novos leads (default: 30; máximo: 30 por execução);
 - histórico de leads e bloqueios, se acessível; não afirmar deduplicação entre dias sem consultar fonte persistente;
 - evidências públicas disponíveis, data de verificação e regras de exclusão.
 
@@ -27,7 +27,9 @@ Localizar e qualificar empresas brasileiras de **recovery e wellness operacional
 5. Registrar 2–3 fatos observáveis com URLs e data de acesso; classificar momento comercial e oportunidade de abordagem como hipóteses, não como fatos internos. NÃO presumir orçamento, dor, receita, tamanho da equipe nem disponibilidade do decisor.
 6. Ordenar por pré-score, relevância da evidência, capacidade de acesso comercial e preferência por organizações independentes com ciclos decisórios curtos; grandes redes podem ser P2 mesmo com pré-score alto.
 7. Separar informações publicamente verificadas de campos que exigem conversa e preparar próxima ação humana. Não criar leads fictícios só para preencher a meta.
-8. Entregar relatório diário conciso e registros estruturados conforme references/LEAD_SCHEMA.md; indicar sem novos leads se necessário.
+8. Para cada empresa, pesquisar os três canais: Instagram público oficial, e-mail empresarial e WhatsApp empresarial. Quando houver apenas telefone publicado, anotar como telefone (sem presumir que seja WhatsApp). Nunca inventar endereço, número ou perfil; campos não verificados permanecem vazios. Guardar fonte de cada contato.
+9. Entregar relatório diário conciso, uma relação de até 30 registros e os respectivos canais de contato, conforme references/LEAD_SCHEMA.md; indicar sem novos leads se necessário.
+10. Preparar uma fila de pré-aprovação para Telegram apenas quando houver integração autorizada com a instância ativa, com revisão humana individual antes de qualquer DM. Não afirmar que enviou ao Telegram sem confirmação do serviço.
 
 ## ICP Score com rubricas obrigatórias (0–100)
 **Pré-score público (máximo 65):**
@@ -48,10 +50,10 @@ Localizar e qualificar empresas brasileiras de **recovery e wellness operacional
 - Preferir evidência ao score quando houver conflito; explicar exceções.
 
 ## Saída: relatório diário
-Título com data; contagem de pesquisados, encontrados, novos verificados, possíveis duplicatas e rejeitados. Apresentar até 5 novos leads qualificados, expandindo até 10 só se houver boa evidência, em tabela:
-Empresa | Cidade/UF | Pré-score /65 | Modalidades e sinais verificados | Link direto | Por que abordar | Informação pendente | Prioridade.
+Título com data; contagem de pesquisados, encontrados, novos verificados, possíveis duplicatas e rejeitados. Apresentar até 30 novos leads verificados em tabela (não preencher lacunas artificialmente). Priorizar os 10 melhores na síntese e manter os demais no registro estruturado:
+Empresa | Cidade/UF | Pré-score /65 | Modalidades e sinais verificados | Instagram público | E-mail empresarial | WhatsApp confirmado ou telefone comum | Por que abordar | Informação pendente | Prioridade.
 Depois, no máximo 3 observações de mercado e 1 abordagem consultiva sugerida (sem mensagem enviada).
-Incluir link para a própria skill e declarar se a deduplicação foi comprovada contra um cadastro persistente, só comparada com histórico da conversa ou não verificada.
+Incluir link para a própria skill e declarar se a deduplicação foi comprovada contra um cadastro persistente, só comparada com histórico da conversa ou não verificada. Apresentar também o lote apto a ser submetido a aprovação individual no Telegram, explicitando que preparação não é envio efetivo.
 Nunca inventar dados, números ou contatos. Informar claramente quando não houver empresas novas suficientes.
 
 ## Regras de privacidade e automação
